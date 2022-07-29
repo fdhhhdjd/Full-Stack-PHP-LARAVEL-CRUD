@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\mycontroller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/', 'insertRead');
+
+//Post data
+Route::post('insertData', [mycontroller::class, 'insert']);
+// Get data
+Route::get('/', [mycontroller::class, 'readdata']);
