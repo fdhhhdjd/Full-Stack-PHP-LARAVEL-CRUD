@@ -13,13 +13,25 @@ use App\Http\Controllers\mycontroller;
 |
 */
 
+
+//View 
+Route::view('/', 'insertRead');
+
+Route::view('/update', 'uploadview');
+
+//handle backend  
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::view('/', 'insertRead');
-
 //Post data
 Route::post('insertData', [mycontroller::class, 'insert']);
 // Get data
 Route::get('/', [mycontroller::class, 'readdata']);
+//Get data Id
+Route::get('updatedelete/{id}', [mycontroller::class, 'updatedelete'])->name('updatedelete');
+//Get Data delete
+Route::get('delete/{id}', [mycontroller::class, 'deleleproduct'])->name('deleleproduct');
+//Update
+Route::post('update/{id}', [mycontroller::class, 'editproduct'])->name('editproduct');
+//delete
+Route::post('delete/{id}', [mycontroller::class, 'deleleproduct'])->name('deleleproduct');

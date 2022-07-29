@@ -32,7 +32,7 @@
                                     onchange="previewFile(this);">
                             </div>
                             <div class="mb-2">
-                                <img id="previewImg" src="{{ asset('images/avatar.jpg') }}"alt="Avatar"
+                                <img id="previewImg" src="{{ asset('images/avatar.jpg') }}"alt="Avatar" id=previewImg
                                     class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
@@ -55,18 +55,53 @@
                 <th>Product Name</th>
                 <th>Product Price</th>
                 <th>Product Image</th>
+                <th>Update</th>
+                <th>Delelte</th>
             </thead>
+
             <tbody class='text-danger bg-light fs'>
+
+                <?php
+                if(!$data->isEmpty()){
+                ?>
                 @foreach ($data as $item)
                     <tr>
-                        <td class='pt-5'>{{ $item['Id'] }}</td>
-                        <td class='pt-5'>{{ $item['PName'] }}</td>
-                        <td class='pt-5'>{{ $item['PPrice'] }}</td>
-                        <td>
-                            <img src="images/{{ $item['PImage'] }}" alt="" width="100px" height="100px">
-                        </td>
+                        <form action="updatedelete" method="get">
+                            <td class='pt-5'>
+                                <input type="hidden" name="id" value="{{ $item['Id'] }}">{{ $item['Id'] }}
+                            </td>
+                            <td class='pt-5'>
+                                <input type="hidden" name="name" value="{{ $item['PName'] }}">
+                                {{ $item['PName'] }}
+                            </td>
+                            <td class='pt-5'>
+                                <input type="hidden" name="price" value="{{ $item['PPrice'] }}">
+                                {{ $item['PPrice'] }}
+                            </td>
+
+                            <td>
+                                <input type="hidden" name="image" value="{{ $item['PImage'] }}">
+                                <img src="images/{{ $item['PImage'] }}" alt="" width="100px" height="100px">
+                            </td>
+                            <td class='pt-5'>
+                                <a href="{{ route('updatedelete', $item['Id']) }}"
+                                    class="btn btn-outline-danger rounded-pill">Update</a>
+                            </td>
+                            <td class='pt-5'>
+                                <a href="{{ route('deleleproduct', $item['Id']) }}"
+                                    class="btn btn-outline-danger rounded-pill">Delete</a>
+
+                            </td>
+                        </form>
                     </tr>
                 @endforeach
+                <?php
+                } else{
+                ?>
+                <h1 class="text-center text-danger">Product Not Stock, 😥</h1>
+                <?php  
+                }
+                    ?>
             </tbody>
         </table>
     </div>
